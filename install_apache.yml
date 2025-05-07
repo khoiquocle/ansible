@@ -3,12 +3,12 @@
 - hosts: all
   become: true
   tasks:
-  - name: update repository index
+
+  - name: update repo index and install apache2 and libapache2-mod-php package
     apt: 
-      update_cache: yes
-    when: ansible_distribution == "Ubuntu"
-  - name: install apache2 package
-    apt: 
-      name: apache2
+      name: 
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
       state: latest
+      update_cache: yes
     when: ansible_distribution == "Ubuntu"
