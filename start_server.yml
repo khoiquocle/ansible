@@ -1,0 +1,12 @@
+---
+- name: start and enable apache servers
+  hosts: all
+  become: true
+  tasks:
+    - name: start and enable apache service
+      tags: apache
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+      when: ansible_distribution == "Ubuntu"

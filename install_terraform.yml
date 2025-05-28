@@ -1,0 +1,24 @@
+---
+- name: Install terraform
+  hosts: web_server
+  become: true
+  tasks:
+    - name: install unzip
+      tags: terraform
+      package:
+        name: unzip
+    - name: download terraform binary zip
+      tags: terraform
+      get_url:
+        url: https://releases.hashicorp.com/terraform/1.11.4/terraform_1.11.4_linux_amd64.zip
+        dest: /tmp/terraform.zip
+        mode: '0644'
+    - name: unzip terraform binary
+      tags: terraform
+      unarchive:
+        src: /tmp/terraform.zip
+        dest: /usr/local/bin/
+        remote_src: yes
+        mode: '0755'
+        owner: root
+        group: root

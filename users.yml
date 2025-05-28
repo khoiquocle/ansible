@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: create a new user
+      tags: always
+      user:
+        name: kevin
+        groups: root
+    - name: add ssh key for kevin
+      tags: always
+      authorized_key:
+        user: kevin
+        key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIITgkYlfaNhUVqbGWJ7UX2c23FhLnLx1k+7NG2Srb60y ansible
+    - name: add sudoers file for kevin
+      tags: always
+      copy: 
+        src: sudoer_kevin
+        dest: /etc/sudoers.d/kevin
+        owner: root
+        group: root
+       
+  

@@ -1,0 +1,12 @@
+---
+- name: update email on apache config
+  hosts: all
+  become: true
+  tasks:
+    - name: Set server admin email
+      lineinfile:
+        path: /etc/apache2/sites-available/000-default.conf
+        regexp: '^ *ServerAdmin'
+        line: '    ServerAdmin admin123@uit.com'
+        backrefs: yes
+      when : ansible_distribution == "Ubuntu"
